@@ -141,15 +141,15 @@ supabase secrets set SERVICE_ROLE_KEY=<service_role_key>
 
 ### Backend → Render (FastAPI)
 
-The repo includes a `render.yaml` Blueprint.
+The repo includes `render.yaml` (Blueprint) and `backend/Dockerfile`. The Blueprint uses a Docker runtime so Render never mis-detects the repo as a Node app.
 
-- **Blueprint (easiest):** Render dashboard → *New* → *Blueprint* → connect the GitHub repo → Render creates the web service automatically.
-- **Manual:** *New Web Service* → connect the repo → **Root Directory** `backend` → **Runtime** Python → **Build** `pip install -r requirements.txt` → **Start** `uvicorn app.main:app --host 0.0.0.0 --port $PORT`.
+- **Blueprint (easiest):** Render dashboard → *New* → *Blueprint* → connect the GitHub repo → Render creates the `mobile-money-fds-api` web service and builds the Docker image.
+- **Manual (Docker):** *New Web Service* → connect the repo → **Environment** *Docker* → **Dockerfile Path** `backend/Dockerfile`.
+- **Manual (Python):** *New Web Service* → connect the repo → **Root Directory** `backend` → **Runtime** *Python* → **Build** `pip install -r requirements.txt` → **Start** `uvicorn app.main:app --host 0.0.0.0 --port $PORT`.
 
 Required environment variables:
 
 ```env
-PYTHON_VERSION=3.12.0
 CORS_ORIGINS=https://<your-frontend-url>   # comma-separated, e.g. your Vercel/Netlify URL
 FRAUD_MODEL_BLEND_WEIGHT=0.5
 ```

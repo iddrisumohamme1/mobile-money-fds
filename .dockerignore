@@ -1,0 +1,33 @@
+# Frontend / node
+node_modules
+dist
+dist-ssr
+coverage
+package-lock.json
+
+# Environment
+.env
+.env.*
+!.env.example
+
+# Git / editor / OS
+.git
+.gitignore
+.vscode
+.idea
+.DS_Store
+Thumbs.db
+
+# Python
+.venv
+__pycache__
+*.py[cod]
+backend/.venv
+
+# Stale skills clone (blocked from deletion on this machine)
+skills
+
+# Supabase local tooling
+supabase/.temp
+supabase/.branches
+supabase/.wildcard_domains
