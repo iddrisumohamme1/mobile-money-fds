@@ -137,6 +137,51 @@ supabase functions deploy admin-users
 supabase secrets set SERVICE_ROLE_KEY=<service_role_key>
 ```
 
+## Deployment
+
+### Backend → Render (FastAPI)
+
+The repo includes a `render.yaml` Blueprint.
+
+- **Blueprint (easiest):** Render dashboard → *New* → *Blueprint* → connect the GitHub repo → Render creates the web service automatically.
+- **Manual:** *New Web Service* → connect the repo → **Root Directory** `backend` → **Runtime** Python → **Build** `pip install -r requirements.txt` → **Start** `uvicorn app.main:app --host 0.0.0.0 --port $PORT`.
+
+Required environment variables:
+
+```env
+PYTHON_VERSION=3.12.0
+CORS_ORIGINS=https://<your-frontend-url>   # comma-separated, e.g. your Vercel/Netlify URL
+FRAUD_MODEL_BLEND_WEIGHT=0.5
+```
+
+Notes:
+- The trained model (`backend/model/*.joblib`, ~8 MB) is committed and loads lazily from its own path — no extra config.
+- Verify with `GET https://<service>.onrender.com/health`.
+- The free tier sleeps after ~15 min idle; the first request after a cold start is slow.
+
+### Frontend → Vercel (recommended)
+
+The repo includes `vercel.json` (SPA rewrites); Vite is auto-detected (build `npm run build`, output `dist`).
+
+- **Dashboard:** *Add New Project* → import the GitHub repo → set the env vars below → Deploy.
+- **CLI:** `npm i -g vercel && vercel --prod` from the repo root.
+
+Build-time environment variables (Vite inlines `VITE_*` at build time, so they must be set in the project before deploying):
+
+```env
+VITE_SUPABASE_URL=your_supabase_project_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+VITE_FRAUD_API_URL=https://<render-service>.onrender.com
+```
+
+### Frontend → Netlify (alternative)
+
+`netlify.toml` provides the build command, publish directory (`dist`), and SPA redirects. Connect the repo and set the same three `VITE_*` variables.
+
+### Backend alternatives: Railway / Fly.io
+
+Same start command (`uvicorn app.main:app --host 0.0.0.0 --port $PORT`), root directory `backend`, and the same env vars.
+
 ## Project Structure
 
 ```text
