@@ -1,0 +1,341 @@
+/* ─── Google Fonts ─────────────────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── CSS Custom Properties ─────────────────────────────────────────────────── */
+:root {
+  --color-bg-base:     #020617;
+  --color-bg-card:     #0f172a;
+  --color-bg-elevated: #1e293b;
+  --color-border:      rgba(99, 102, 241, 0.12);
+  --color-border-bright: rgba(99, 102, 241, 0.3);
+  --color-text-primary: #f1f5f9;
+  --color-text-muted:  #94a3b8;
+  --color-accent:      #6366f1;
+  --color-emerald:     #10b981;
+  --color-amber:       #f59e0b;
+  --color-rose:        #f43f5e;
+}
+
+/* ─── Base Styles ───────────────────────────────────────────────────────────── */
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply bg-slate-950 text-slate-100 font-sans antialiased;
+  background:
+    radial-gradient(circle at top, rgba(99, 102, 241, 0.16), transparent 32%),
+    radial-gradient(circle at bottom right, rgba(16, 185, 129, 0.10), transparent 28%),
+    var(--color-bg-base);
+  overflow-x: hidden;
+  font-feature-settings: 'cv02', 'cv03', 'cv04', 'liga', 1;
+}
+
+::selection {
+  background: rgba(99, 102, 241, 0.35);
+  color: #f8fafc;
+}
+
+.animate-fade-up {
+  animation: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 2.4s ease-in-out infinite;
+}
+
+.signature-panel {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.92), rgba(15, 23, 42, 0.75));
+  border: 1px solid rgba(129, 140, 248, 0.24);
+  box-shadow: 0 26px 80px rgba(2, 6, 23, 0.55);
+}
+
+.signature-panel::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(rgba(99, 102, 241, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(99, 102, 241, 0.08) 1px, transparent 1px);
+  background-size: 22px 22px;
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,0.95), transparent);
+  pointer-events: none;
+}
+
+.eyebrow {
+  letter-spacing: 0.18em;
+}
+
+/* ─── Custom Scrollbar ──────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #0f172a; }
+::-webkit-scrollbar-thumb { background: #334155; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #475569; }
+
+/* ─── Glass Card ────────────────────────────────────────────────────────────── */
+.glass-card {
+  background: rgba(15, 23, 42, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--color-border);
+}
+
+.glass-card-elevated {
+  background: rgba(30, 41, 59, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--color-border-bright);
+}
+
+/* ─── Gradient Mesh Background ──────────────────────────────────────────────── */
+.bg-mesh {
+  background-color: var(--color-bg-base);
+  background-image:
+    radial-gradient(ellipse at 20% 20%, rgba(99, 102, 241, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(244, 63, 94, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 50%, rgba(16, 185, 129, 0.05) 0%, transparent 60%);
+}
+
+/* ─── Text Gradient ─────────────────────────────────────────────────────────── */
+.text-gradient-primary {
+  background: linear-gradient(135deg, #6366f1 0%, #a78bfa 50%, #06b6d4 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-danger {
+  background: linear-gradient(135deg, #f43f5e 0%, #fb923c 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Risk Tier Colors ──────────────────────────────────────────────────────── */
+.risk-approved  { @apply text-emerald-400 bg-emerald-500/10 border-emerald-500/30; }
+.risk-review    { @apply text-amber-400   bg-amber-500/10   border-amber-500/30;   }
+.risk-blocked   { @apply text-rose-400    bg-rose-500/10    border-rose-500/30;    }
+
+/* ─── Shimmer Loading ───────────────────────────────────────────────────────── */
+.shimmer {
+  background: linear-gradient(90deg, #1e293b 25%, #334155 50%, #1e293b 75%);
+  background-size: 200% 100%;
+  animation: shimmer 2s linear infinite;
+}
+
+/* ─── Status Pulse ──────────────────────────────────────────────────────────── */
+.status-pulse {
+  position: relative;
+}
+.status-pulse::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: 0.3;
+  animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* ─── Transaction Row ───────────────────────────────────────────────────────── */
+.tx-row {
+  @apply relative cursor-pointer border-b border-slate-800/50 transition-all duration-200;
+}
+.tx-row:hover {
+  @apply bg-slate-800/40;
+}
+.tx-row.selected {
+  @apply bg-indigo-500/10 border-indigo-500/30;
+}
+.tx-row.selected.border-l-emerald-500 { border-left-color: #10b981; }
+.tx-row.selected.border-l-amber-500  { border-left-color: #f59e0b; }
+.tx-row.selected.border-l-rose-500   { border-left-color: #f43f5e; }
+.tx-row-new {
+  animation: slide-down 0.35s ease-out forwards;
+}
+
+.ledger-row-new {
+  animation: slide-down 0.3s ease-out forwards;
+}
+
+/* ─── Gauge Colors ──────────────────────────────────────────────────────────── */
+.gauge-low    { stroke: #10b981; }
+.gauge-medium { stroke: #f59e0b; }
+.gauge-high   { stroke: #f43f5e; }
+
+/* ─── Feature Badge ─────────────────────────────────────────────────────────── */
+.feature-flagged {
+  animation: glow-pulse 2s ease-in-out infinite;
+}
+
+/* ─── KPI Card ──────────────────────────────────────────────────────────────── */
+.kpi-card {
+  @apply glass-card rounded-xl p-4 flex flex-col gap-2 transition-all duration-300;
+}
+.kpi-card:hover {
+  border-color: var(--color-border-bright);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(99, 102, 241, 0.15);
+}
+
+/* ─── Button Variants ───────────────────────────────────────────────────────── */
+.btn-primary {
+  @apply inline-flex items-center gap-2 px-4 py-2 rounded-lg font-medium text-sm
+         bg-indigo-600 hover:bg-indigo-500 text-white
+         transition-all duration-200 active:scale-95;
+  box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+}
+.btn-primary:hover {
+  box-shadow: 0 0 30px rgba(99, 102, 241, 0.5);
+}
+
+.btn-danger {
+  @apply inline-flex items-center gap-2 px-4 py-2 rounded-lg font-medium text-sm
+         bg-rose-600 hover:bg-rose-500 text-white
+         transition-all duration-200 active:scale-95;
+}
+
+.btn-success {
+  @apply inline-flex items-center gap-2 px-4 py-2 rounded-lg font-medium text-sm
+         bg-emerald-600 hover:bg-emerald-500 text-white
+         transition-all duration-200 active:scale-95;
+}
+
+.btn-ghost {
+  @apply inline-flex items-center gap-2 px-4 py-2 rounded-lg font-medium text-sm
+         bg-slate-800 hover:bg-slate-700 text-slate-300
+         border border-slate-700 hover:border-slate-600
+         transition-all duration-200 active:scale-95;
+}
+
+/* ─── Input ─────────────────────────────────────────────────────────────────── */
+.input-dark {
+  @apply w-full bg-slate-900 border border-slate-700 rounded-lg px-3 py-2
+         text-slate-100 placeholder-slate-500 text-sm
+         focus:outline-none focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500/50
+         transition-colors duration-200;
+}
+
+/* ─── Stagger Animations ────────────────────────────────────────────────────── */
+.stagger-1 { animation-delay: 0ms; }
+.stagger-2 { animation-delay: 80ms; }
+.stagger-3 { animation-delay: 160ms; }
+.stagger-4 { animation-delay: 240ms; }
+.stagger-5 { animation-delay: 320ms; }
+
+/* ─── Animations ─────────────────────────────────────────────────────────────── */
+@keyframes pulse-ring {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.4; transform: scale(1.2); }
+}
+
+@keyframes fade-up {
+  0%   { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slide-in-right {
+  0%   { opacity: 0; transform: translateX(40px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slide-down {
+  0%   { opacity: 0; transform: translateY(-10px); background-color: rgba(99,102,241,0.15); }
+  100% { opacity: 1; transform: translateY(0);    background-color: transparent; }
+}
+
+@keyframes shimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position:  200% 0; }
+}
+
+@keyframes glow-pulse {
+  0%, 100% { box-shadow: 0 0 4px rgba(245, 158, 11, 0.3); }
+  50%       { box-shadow: 0 0 12px rgba(245, 158, 11, 0.7), 0 0 24px rgba(245, 158, 11, 0.3); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-10px); }
+}
+
+/* ─── Landing: Live Triage Tape ─────────────────────────────────────────────── */
+.tape {
+  overflow: hidden;
+  position: relative;
+}
+.tape::before,
+.tape::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 48px;
+  z-index: 2;
+  pointer-events: none;
+}
+.tape::before { left: 0; background: linear-gradient(90deg, rgba(2, 6, 23, 0.95), transparent); }
+.tape::after  { right: 0; background: linear-gradient(270deg, rgba(2, 6, 23, 0.95), transparent); }
+
+.tape-track {
+  display: flex;
+  width: max-content;
+  animation: tape-scroll 36s linear infinite;
+}
+.tape:hover .tape-track { animation-play-state: paused; }
+
+@keyframes tape-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ─── Landing: Signal Console ───────────────────────────────────────────────── */
+.console::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(99, 102, 241, 0.05) 0px,
+    rgba(99, 102, 241, 0.05) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  pointer-events: none;
+}
+
+.blink {
+  animation: blink 1.1s steps(2, start) infinite;
+}
+@keyframes blink {
+  to { visibility: hidden; }
+}
+
+/* ─── Keyboard Focus ────────────────────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid rgba(99, 102, 241, 0.85);
+  outline-offset: 2px;
+}
+
+/* ─── Reduced Motion ────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .tape-track,
+  .blink,
+  .ledger-row-new,
+  .animate-float,
+  .animate-glow-pulse {
+    animation: none !important;
+  }
+  .tape { overflow-x: auto; }
+  html { scroll-behavior: auto; }
+}

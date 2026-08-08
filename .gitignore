@@ -1,0 +1,43 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build output
+dist/
+dist-ssr/
+coverage/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Logs
+*.log
+npm-debug.log*
+dev-server.log
+
+# Editor / OS
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+
+# Vite temp artifacts
+vite.config.js.timestamp-*.mjs
+
+# Supabase local tooling
+supabase/.temp/
+supabase/.branches/
+supabase/.wildcard_domains/
+
+# Python / backend
+.venv/
+__pycache__/
+*.py[cod]
+backend/**/__pycache__/
+
+# Stale third-party skills marketplace clone (unrelated to this project)
+skills/
